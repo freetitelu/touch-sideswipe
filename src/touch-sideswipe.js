@@ -1,7 +1,6 @@
 /* touchSideSwipe v0.1.0
- * http://touchSideSwipe.com
- * Copyright (c) 2016 Mititelu Nick
- * Released under the MIT license
+ * https://github.com/Lucyway/touch-sideswipe
+ * MIT license 2016. Author Mititelu Nick (aka freetitelu)
  */
 //todo: гамбургер и обработка на открытие закрытие
 //todo: разобраться с размерами бара - ибо неверно вычисляет
