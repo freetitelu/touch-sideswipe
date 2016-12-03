@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Touch side swipe Demo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./demo.css">
+    <link rel="stylesheet" href="../src/touch-sideswipe.css">
+</head>
+
+<body>
+    <div class="content">
+        <h1>Touch side swipe Demo</h1>
+        <p>If you're in touch devise: touch (swipe) left window side to right</p>
+        <p>If you're in Chrome:</p>
+        <ol>
+            <li>Activate "Web-inspector"</li>
+            <li>Activate "Toogle device toolbar"</li>
+            <li>Touch (swipe) left window side to right</li>
+        </ol>
+    </div>
+    <!---->
+    <div id="touchSideSwipe"></div>
+    <!---->
+    <script src="../src/touch-sideswipe.js"></script>
+    <script type="text/javascript">
+        var config = {
+            wrappedElementID: 'touchSideSwipe',
+            sideHookWidth: 10,
+        }
+        var touchSideSwipe = new TouchSideSwipe(config);
+    </script>
+
+</body>
+
+</html>

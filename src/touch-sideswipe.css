@@ -1,0 +1,52 @@
+#touchSideSwipe {
+    display: none;
+}
+#touchSideSwipe.tss_wrapped{
+    width: 80%;
+    max-width: 400px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+.tss {
+    z-index: 9999;
+    position: fixed;
+    will-change: transform;
+    top: 0;
+    left: 0;
+    width: 410px;
+    height: 100%;
+}
+.tss--open {
+    transform: translateX(0);
+    width: 100%;
+}
+.tss--close {
+    transform: translateX(-400px);
+}
+.tss_bg {
+    background: #000;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    will-change: opacity;
+}
+.tss_bg--open {
+    opacity: 0.8;
+    z-index: 999;
+}
+.tss_bg--close {
+    opacity: 0;
+    z-index: -10;
+}
+.tss--transition {
+    transition: all .2s ease;
+}
+.tss-zindex999{
+    z-index: 999;
+}
