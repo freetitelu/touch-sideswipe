@@ -1,9 +1,8 @@
 #touchSideSwipe {
     display: none;
 }
-#touchSideSwipe.tss_wrapped{
-    width: 80%;
-    max-width: 400px;
+#touchSideSwipe.tss_wrapped {
+    width: 400px;
     height: 100%;
     position: absolute;
     top: 0;
@@ -16,15 +15,13 @@
     will-change: transform;
     top: 0;
     left: 0;
-    width: 410px;
     height: 100%;
 }
 .tss--open {
-    transform: translateX(0);
-    width: 100%;
+
 }
 .tss--close {
-    transform: translateX(-400px);
+
 }
 .tss_bg {
     background: #000;
@@ -47,6 +44,37 @@
 .tss--transition {
     transition: all .2s ease;
 }
-.tss-zindex999{
+.tss-zindex999 {
     z-index: 999;
+}
+@media (max-width: 500px) {
+    .is-navOpen .navbar-label-wrap {
+        left: 85%;
+    }
+}
+@media (max-width: 1023px) {
+    .navbar-label-wrap {
+        z-index: 99999;
+        width: 42px;
+        height: 40px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+    }
+    .is-navOpen .navbar-label-wrap {
+        left: 420px;
+    }
+    .navbar-label {
+        width: 27px;
+        height: 20px;
+        background-repeat: repeat-x;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAUCAYAAAB8gkaAAAAACXBIW…H8xMRARzB8LWOBheewA4yjSX806Y8m/dGkP5r0BzbpAwB43B4ZvJqJpwAAAABJRU5ErkJggg==);
+        /* transition: all .3s linear; */
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        display: block;
+        margin: 5px auto;
+        transition: all .3s ease;
+    }
 }
