@@ -23,14 +23,17 @@
         </ol>
     </div>
     <!---->
-    <div id="touchSideSwipe">navbar</div>
- <div class="navbar-label-wrap"><div id="navbar_label" class="navbar-label" style="display: block;"></div></div>
-    <!---->
+    <div id="touchSideSwipe"><a href="#">navbar</a></div>
+
     <script src="../src/touch-sideswipe.js"></script>
     <script type="text/javascript">
         var config = {
-            wrappedElementID: 'touchSideSwipe',
-            sideHookWidth: 10,
+            elementID: 'touchSideSwipe',
+            elementWidth: 400, //px
+            elementMaxWidth: 0.8, // *100%
+            sideHookWidth: 10, //px
+            moveSpeed: 0.2, //sec
+            opacityBackground: 0.8,
         }
         var touchSideSwipe = new TouchSideSwipe(config);
     </script>
