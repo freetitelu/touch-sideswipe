@@ -1,43 +1,54 @@
-#touchSideSwipe {
-    display: none;
+@media(max-width:1023px){
+    .touch-side-swipe {
+        display: none;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        overflow-y: overlay;
+    }
+    .tss .touch-side-swipe {
+        display: block;
+    }
+    .tss {
+        z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        will-change: transform;
+        transition-property: transform;
+        transition-timing-function: ease;
+    }
+    .tss-wrap {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .tss-label {
+        z-index: 99999;
+        position: absolute;
+        top: 5px;
+        right: -40px;
+        width: 30px;
+        height: 30px;
+        background-position: 50%;
+        background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAbCAIAAAAyOnIjAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAAGElEQVQI12NgwAL+///PxMDAAMMMVFIDAMPRCQrijOhaAAAAAElFTkSuQmCC') 0 0 repeat-x;
+        display: block;
+    }
+    .tss-bg {
+        background: #000;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        will-change: opacity;
+        transition-property: opacity;
+        transition-timing-function: ease;
+    }
 }
-#touchSideSwipe.tss_wrapped {
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-}
-.tss {
-    z-index: 9999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    will-change: transform;
-    transition-property: transform;
-    transition-timing-function: ease;
-}
-.tss-bg {
-    background: #000;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    will-change: opacity;
-    transition-property: opacity;
-    transition-timing-function: ease;
-}
-.tss-label {
-    z-index: 9999;
-    position: absolute;
-    top: 5px;
-    right: -40px;
-    width: 30px;
-    height: 30px;
-    background-position: 50%;
-    background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAbCAIAAAAyOnIjAAAACXBIWXMAAA9hAAAPYQGoP6dpAAAAGElEQVQI12NgwAL+///PxMDAAMMMVFIDAMPRCQrijOhaAAAAAElFTkSuQmCC') 0 0 repeat-x;
-    display: block;
-}
+

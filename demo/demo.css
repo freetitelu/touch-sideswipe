@@ -17,7 +17,11 @@ body {
     background: #eee;
     line-height: 40px;
 }
-
-#touchSideSwipe {
-    background: #a0302c;
+@media(max-width:1023px){
+    .touch-side-swipe{
+        background: hsl(2, 57%, 40%);
+    }
 }
+.touch-side-swipe ul{display: block;overflow-y:overlay;margin: 0; padding: 0;}
+.touch-side-swipe a {color:#fff;}
+*{box-sizing: border-box}

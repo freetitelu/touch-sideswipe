@@ -10,6 +10,38 @@
 </head>
 
 <body>
+    <div id="touchSideSwipe" class="touch-side-swipe">
+        <ul>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+        </ul>
+    </div>
     <div class="content">
         <h1>Touch side swipe Demo</h1>
         <p>Touch side swipe - widget-library for mobile navbar (writed on vanilla js and little bit css).</p>
@@ -23,7 +55,6 @@
         </ol>
     </div>
     <!---->
-    <div id="touchSideSwipe"><a href="#">navbar</a></div>
 
     <script src="../src/touch-sideswipe.js"></script>
     <script type="text/javascript">
@@ -34,6 +65,8 @@
             sideHookWidth: 10, //px
             moveSpeed: 0.2, //sec
             opacityBackground: 0.8,
+            shiftForStart: 30, // px
+            windowMaxWidth: 1024, // px
         }
         var touchSideSwipe = new TouchSideSwipe(config);
     </script>
