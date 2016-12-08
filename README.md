@@ -1,4 +1,5 @@
 <h1>Touch side swipe</h1>
+<a href="https://github.com/freetitelu/touch-sideswipe">https://github.com/freetitelu/touch-sideswipe</a>
 <p>Touch side swipe - widget-library for mobile navbar (writed on vanilla js and little bit css).</p>
 <h2>How to use.</h2>
 <p>If you're in touch devise: touch (swipe) left window side to right</p>
@@ -14,6 +15,8 @@
 <i>//todo: registrate in npm and other</i>
 <br>
 <i>//todo: think about right side swipe</i>
+<br>
+<i>//todo: mega refactoring</i>
 <hr>
 
 <b>The MIT License (MIT)</b>
