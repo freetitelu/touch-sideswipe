@@ -5,10 +5,10 @@
         width: 100%;
         top: 0;
         left: 0;
-        overflow-y: overlay;
     }
     .tss .touch-side-swipe {
         display: block;
+        overflow-y: overlay;
     }
     .tss {
         z-index: 9999;

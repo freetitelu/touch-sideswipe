@@ -22,6 +22,6 @@ body {
         background: hsl(2, 57%, 40%);
     }
 }
-.touch-side-swipe ul{display: block;overflow-y:overlay;margin: 0; padding: 0;}
+.touch-side-swipe ul{display: block;overflow-y:overlay;margin: 0; padding: 0;line-height: 30px}
 .touch-side-swipe a {color:#fff;}
 *{box-sizing: border-box}

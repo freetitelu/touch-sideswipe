@@ -1,13 +1,10 @@
-/* touchSideSwipe v0.1.2
+/* touchSideSwipe v0.1.3
  * https://github.com/Lucyway/touch-sideswipe
  * 2016 (c) Mititelu Nick (aka freetitelu). MIT license.
  */
-// todo: issue закрывается повторном вертикальном при скролле по навбару
-// todo: issue закрывается при сдвигу влево по фону
-// todo: issue отключать виджет при ресайзе окна и если окно > 1024
-// todo: issue открытый гамбургер не нажимается
 // todo: сделать крестик на лейбл при открытии
-// todo: отделить оресайзенджин
+// fix: прожимается внутр.ссылка меню при нажатии на гамбургер
+// todo: readme отделить онресайзенджин
 (function(root, factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -28,7 +25,7 @@
             sideHookWidth: config.sideHookWidth || 10, //px
             moveSpeed: config.moveSpeed || 0.2, //sec
             opacityBackground: config.opacityBackground || 0.8,
-            shiftForStart: config.shiftForStart || 30, // px
+            shiftForStart: config.shiftForStart || 50, // px
             windowMaxWidth: config.windowMaxWidth || 1024, // px
         };
         //------------------------------------------------------------------
@@ -105,10 +102,10 @@
                 tssClose();
             }
             screenAvailWidth = window.screen.availWidth;
-            if (screenAvailWidth < 500) {
-                elSubmainWidth = screenAvailWidth * elSubmainMaxWidth;
-            } else {
+            if (screenAvailWidth > 499) {
                 elSubmainWidth = opt.elSubmainWidth;
+            } else {
+                elSubmainWidth = screenAvailWidth * opt.elSubmainMaxWidth;
             }
             elMainWidth = elSubmainWidth + opt.sideHookWidth;
             elSubmain.style.width = elSubmainWidth + 'px';
@@ -126,7 +123,7 @@
             elBg.style.transitionDuration = '0s';
             elBg.style.zIndex = 999;
             elMainCoordX0 = elMain.getBoundingClientRect().left;
-            touchstartCoordX = event.touches[0].pageX;
+            touchstartCoordX = event.changedTouches[0].clientX;
         }
         //------------------------------------------------------------------
 
@@ -134,15 +131,15 @@
         // Drag element (use states from tssInitStates, tssRecalcStates, tssTouchstart)
         //------------------------------------------------------------------
         function tssTouchmove(event) {
-            //event.preventDefault();
-            touchmoveCoordX = event.touches[0].pageX;
+            touchmoveCoordX = event.changedTouches[0].clientX;
             var elMainCoordX0New = touchmoveCoordX - (touchstartCoordX - elMainCoordX0);
-            if (elMainCoordX0New < 0){
-                if (touchstartCoordX > elSubmainWidth){
+
+            if ((elMainCoordX0New) <= 0){ // swipe touchmove < elSubmainWidth
+                if (touchstartCoordX > elSubmainWidth){//if opened and touchstart over elSub
                     elMainCoordX0New = elMainCoordX0New + (touchstartCoordX - elSubmainWidth);
                 }
-                if(touchmoveCoordX < elSubmainWidth){
-                    elMain.style.transform = 'translateX(' + elMainCoordX0New + 'px)';
+                if(touchmoveCoordX <= elSubmainWidth){
+                    elMain.style.transform = 'translateX(' + elMainCoordX0New  + 'px)';
                 }
                 var elBgOpacity = touchmoveCoordX / elSubmainWidth;
                 if (elBgOpacity > 0 && elBgOpacity < 1) {
@@ -160,41 +157,55 @@
         // end touch-event (use states from tssInitStates, tssRecalcStates, tssTouchmove)
         //------------------------------------------------------------------
         function tssTouchend(event) {
-            //elMain.style.transform = '';
+            var touchendCoordX = event.changedTouches[0].clientX;
             document.body.style.overflow = '';
-            elSubmain.style.transform = '';
             elMain.style.transitionDuration = opt.moveSpeed + 's';//todo: перетащить в open/close
             elBg.style.transitionDuration = opt.moveSpeed + 's';
-                if (Math.abs(touchstartCoordX - touchmoveCoordX) > opt.shiftForStart) {
-                    if (touchmoveCoordX > touchstartCoordX) {
-                        tssOpen();
-                    } else {
-                        tssClose();
-                    }
+            if (!open && touchendCoordX > touchstartCoordX) {
+                if (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart) {
+                    tssOpen();
                 }
                 else {
-                    if (touchmoveCoordX > touchstartCoordX) {
-                        tssClose();
-                    } else {
-                        tssOpen();
-                    }
+                    tssClose();
                 }
+            }//touchendCoordX!==touchstartCoordX, equal for click event
+            else if (open && (touchendCoordX < touchstartCoordX) && (touchendCoordX <= elSubmainWidth)){
+                if ((touchstartCoordX > elSubmainWidth) && (touchendCoordX < (elSubmainWidth - opt.shiftForStart)) ||
+                    (touchstartCoordX < elSubmainWidth) && (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart)) {
+                    tssClose();
+                }
+                else {
+                    tssOpen();
+                }
+            }
         }
         //------------------------------------------------------------------
 
         //------------------------------------------------------------------
-        // open/close on click
+        // open/close on click label-element
         //------------------------------------------------------------------
-        function tssClick(event) {
-            if (!open) {
+        function elLabelClick(event) {
+            event.stopPropagation();
+            if (open === false) {
                 tssOpen();
-            } else {
-                //click elBg
-                if (event.clientX > elSubmainWidth) {
-                    tssClose();
-                }
+            } 
+            else {
+                tssClose();
             }
         }
+
+        //------------------------------------------------------------------
+
+        //------------------------------------------------------------------
+        // open/close on click background-element
+        //------------------------------------------------------------------
+        function elBgClick(event) {
+            event.stopPropagation();
+            if (event.clientX > (elMainCoordX0 + elSubmainWidth)) {
+                tssClose();
+            }
+        }
+
         //------------------------------------------------------------------
 
         //------------------------------------------------------------------
@@ -234,7 +245,8 @@
         // tssClear (for large-width windows)
         //------------------------------------------------------------------
         function tssClear() {
-            document.body.replaceChild(elInit, elMain);
+            document.body.insertBefore(elInit, elMain)
+            document.body.removeChild(elMain);
             document.body.removeChild(elBg);
             init = false;
         }
@@ -244,12 +256,13 @@
         // set of listeners and states
         //------------------------------------------------------------------
         function tssActionsEngine(){
-                tssInitStates();
-                window.addEventListener('resize', tssRecalcStates, false);
-                elMain.addEventListener('touchstart', tssTouchstart, false);
-                elMain.addEventListener('touchmove', tssTouchmove, false);
-                elMain.addEventListener('touchend', tssTouchend, false);
-                elMain.addEventListener('click', tssClick, false);
+            tssInitStates();
+            window.addEventListener('resize', tssRecalcStates, false);
+            elMain.addEventListener('touchstart', tssTouchstart, false);
+            elMain.addEventListener('touchmove', tssTouchmove, false);
+            elMain.addEventListener('touchend', tssTouchend, false);
+            elMain.addEventListener('click', elBgClick, false);
+            elLabel.addEventListener('click', elLabelClick, false);
         }
         //------------------------------------------------------------------
 
@@ -257,7 +270,7 @@
         // winOnresizeEngine (if change width of window)
         //------------------------------------------------------------------
         function winOnresizeEngine(event) {
-            screenAvailWidth = window.screen.availWidth;
+            var screenAvailWidth = window.screen.availWidth;
             if(screenAvailWidth < 1024){
                 if(init){
                     tssClear();
