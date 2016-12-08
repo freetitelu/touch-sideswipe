@@ -4,6 +4,7 @@
 <h2>How to use.</h2>
 <p>If you're in touch devise: touch (swipe) left window side to right</p>
 <p>If you're in Chrome:</p>
+<p>just reduce your browser window</p>
 <ol>
     <li>Activate "Web-inspector"</li>
     <li>Activate "Toogle device toolbar"</li>
