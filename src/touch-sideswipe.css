@@ -83,7 +83,7 @@
         height: 2px;
     }
     .tss--open .tss-label_pic:after{
-        width: 1px;
+        width: 2px;
         height: 40px;
     }
     .tss--open .tss-label_pic:after, .tss--open .tss-label_pic:before {
