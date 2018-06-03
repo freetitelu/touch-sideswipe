@@ -11,6 +11,9 @@
     <li>Activate "Toogle device toolbar"</li>
     <li>Touch (swipe) left window side to right</li>
 </ol>
+
+<p>Public api-functions for call open/close *:<br><span style="color:#a0302c">touchSideSwipe.tssOpen()<br>touchSideSwipe.tssClose()</span></p>
+<p> * or document.querySelector('.tss-label').click()</p>
 <i>//todo: create branch gh-page for demo
 </i>
 <br>

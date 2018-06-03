@@ -1,8 +1,7 @@
-/* touchSideSwipe v0.2.0
+/* touchSideSwipe v0.3.0
  * https://github.com/Lucyway/touch-sideswipe
  * 2016 (c) Mititelu Nick (aka freetitelu). MIT license.
  */
-// todo: сделать крестик на лейбл при открытии
 (function(root, factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -56,7 +55,7 @@
             elLabel.innerHTML = '<div class="tss-label_pic"></div>';
             elBg = document.createElement('div');
             //-------------------------------
-            
+
             //-------------------------------
             // wrap initial-elem in main in submain, add bg in body
             elMain.appendChild(elSubmain);
@@ -132,12 +131,12 @@
             touchmoveCoordX = event.changedTouches[0].clientX;
             var elMainCoordX0New = touchmoveCoordX - (touchstartCoordX - elMainCoordX0);
 
-            if ((elMainCoordX0New) <= 0){ // swipe touchmove < elSubmainWidth
-                if (touchstartCoordX > elSubmainWidth){//if opened and touchstart over elSub
+            if ((elMainCoordX0New) <= 0) { // swipe touchmove < elSubmainWidth
+                if (touchstartCoordX > elSubmainWidth) { //if opened and touchstart over elSub
                     elMainCoordX0New = elMainCoordX0New + (touchstartCoordX - elSubmainWidth);
                 }
-                if(touchmoveCoordX <= elSubmainWidth){
-                    elMain.style.transform = 'translateX(' + elMainCoordX0New  + 'px)';
+                if (touchmoveCoordX <= elSubmainWidth) {
+                    elMain.style.transform = 'translateX(' + elMainCoordX0New + 'px)';
                 }
                 var elBgOpacity = touchmoveCoordX / elSubmainWidth;
                 if (elBgOpacity > 0 && elBgOpacity < 1) {
@@ -157,22 +156,20 @@
         function tssTouchend(event) {
             var touchendCoordX = event.changedTouches[0].clientX;
             document.body.style.overflow = '';
-            elMain.style.transitionDuration = opt.moveSpeed + 's';//todo: перетащить в open/close
+            elMain.style.transitionDuration = opt.moveSpeed + 's'; //todo: перетащить в open/close
             elBg.style.transitionDuration = opt.moveSpeed + 's';
             if (!open && touchendCoordX > touchstartCoordX) {
                 if (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart) {
                     tssOpen();
-                }
-                else {
+                } else {
                     tssClose();
                 }
-            }//touchendCoordX!==touchstartCoordX, equal for click event
-            else if (open && (touchendCoordX < touchstartCoordX) && (touchendCoordX <= elSubmainWidth)){
+            } //touchendCoordX!==touchstartCoordX, equal for click event
+            else if (open && (touchendCoordX < touchstartCoordX) && (touchendCoordX <= elSubmainWidth)) {
                 if ((touchstartCoordX > elSubmainWidth) && (touchendCoordX < (elSubmainWidth - opt.shiftForStart)) ||
                     (touchstartCoordX < elSubmainWidth) && (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart)) {
                     tssClose();
-                }
-                else {
+                } else {
                     tssOpen();
                 }
             }
@@ -186,8 +183,7 @@
             event.stopPropagation();
             if (open === false) {
                 tssOpen();
-            } 
-            else {
+            } else {
                 tssClose();
             }
         }
@@ -244,7 +240,7 @@
         // tssClear (for large-width windows)
         //------------------------------------------------------------------
         function tssClear() {
-            if((elMain && elBg) != undefined){
+            if ((elMain && elBg) != undefined) {
                 elMain.parentNode.insertBefore(elInit, elMain);
                 elMain.remove();
                 elBg.remove();
@@ -258,10 +254,9 @@
         //------------------------------------------------------------------
         function winOnresizeEngine(event) {
             winInnerWidth = window.innerWidth;
-            if(winInnerWidth < 1024 && !init){
+            if (winInnerWidth < opt.windowMaxWidth && !init) {
                 tssActionsEngine();
-            }
-            else if(winInnerWidth >= 1024 && init){
+            } else if (winInnerWidth >= opt.windowMaxWidth && init) {
                 tssClear();
             }
         }
@@ -270,8 +265,8 @@
         //------------------------------------------------------------------
         // set of listeners and states
         //------------------------------------------------------------------
-        function tssActionsEngine(){
-            if(winInnerWidth < 1024 && !init){
+        function tssActionsEngine() {
+            if (winInnerWidth < opt.windowMaxWidth && !init) {
                 tssInitStates();
                 window.addEventListener('resize', tssRecalcStates, false);
                 elMain.addEventListener('touchstart', tssTouchstart, false);
@@ -285,6 +280,13 @@
         //------------------------------------------------------------------
 
         tssActionsEngine();
+
+        //public functions
+        return {
+            tssOpen: tssOpen,
+            tssClose: tssClose
+        }
+
     };
     return TouchSideSwipe;
 }));

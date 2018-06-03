@@ -1,4 +1,9 @@
-@media(max-width:1023px){
+/* touchSideSwipe v0.3.0
+ * https://github.com/Lucyway/touch-sideswipe
+ * 2016 (c) Mititelu Nick (aka freetitelu). MIT license.
+ */
+
+@media(max-width:1023px) {
     .touch-side-swipe {
         display: none;
         height: 100%;
@@ -48,7 +53,8 @@
         box-sizing: border-box;
         transition: transform .2s ease;
     }
-    .tss-label_pic:after, .tss-label_pic:before {
+    .tss-label_pic:after,
+    .tss-label_pic:before {
         content: '';
         pointer-events: none;
         transition: transform .2s ease;
@@ -66,31 +72,32 @@
         color: #fff;
         width: 30px;
         height: 3px;
-        box-shadow: inset 0 0 0 32px,0 -8px,0 8px;
+        box-shadow: inset 0 0 0 32px, 0 -8px, 0 8px;
         top: 0;
         left: 0;
     }
     .tss--open .tss-label_pic {
         color: #fff;
-        padding:0;
+        padding: 0;
         width: 40px;
         height: 40px;
         margin: 2px;
         transform: rotate(45deg);
     }
-    .tss--open .tss-label_pic:before{
+    .tss--open .tss-label_pic:before {
         width: 40px;
         height: 2px;
     }
-    .tss--open .tss-label_pic:after{
+    .tss--open .tss-label_pic:after {
         width: 2px;
         height: 40px;
     }
-    .tss--open .tss-label_pic:after, .tss--open .tss-label_pic:before {
+    .tss--open .tss-label_pic:after,
+    .tss--open .tss-label_pic:before {
         position: absolute;
         left: 50%;
         top: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         box-shadow: inset 0 0 0 32px;
     }
     .tss-bg {
@@ -106,4 +113,3 @@
         transition-timing-function: ease;
     }
 }
-
