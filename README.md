@@ -30,7 +30,7 @@
 
 <b>The MIT License (MIT)</b>
 
-<p>Copyright (c) 2016 Mititelu Nick (aka freetitelu)</p>
+<p>Copyright (c) 2018 Mititelu Nick (aka freetitelu)</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
