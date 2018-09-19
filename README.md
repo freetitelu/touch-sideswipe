@@ -14,7 +14,7 @@
 </ol>
 
 <h2>How to use "touch-sideswipe.js"</h2>
-
+```
 <div id="touchSideSwipe" class="touch-side-swipe">
     <ul>
         <li><a href="#">navbar</a></li>
@@ -41,7 +41,7 @@
     setTimeout(function() {touchSideSwipe.tssOpen()}, 2000);
     setTimeout(function() {touchSideSwipe.tssClose()}, 3500);
 </script>
-
+```
 <p>Public api-functions for call open/close *:<br><span style="color:#a0302c">touchSideSwipe.tssOpen()<br>touchSideSwipe.tssClose()</span> ( and you can use <span style="color:#a0302c">touchSideSwipe.tssOpen() and touchSideSwipe.tssClose() </span> only when window inner width < option windowMaxWidth in config.</p>
 <p> * or document.querySelector('.tss-label').click()</p>
 <i>//todo: create branch gh-page for demo
