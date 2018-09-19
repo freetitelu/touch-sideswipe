@@ -1,6 +1,6 @@
-/* touchSideSwipe v0.3.0
+/* touchSideSwipe v0.3.1
  * https://github.com/Lucyway/touch-sideswipe
- * 2016 (c) Mititelu Nick (aka freetitelu). MIT license.
+ * 2018 (c) Mititelu Nick (aka freetitelu). MIT license.
  */
 (function(root, factory) {
     'use strict';
@@ -165,6 +165,9 @@
                     tssClose();
                 }
             } //touchendCoordX!==touchstartCoordX, equal for click event
+            else if (!open && touchendCoordX < touchstartCoordX) { // if not opened and drag move left 
+                tssClose();
+            }
             else if (open && (touchendCoordX < touchstartCoordX) && (touchendCoordX <= elSubmainWidth)) {
                 if ((touchstartCoordX > elSubmainWidth) && (touchendCoordX < (elSubmainWidth - opt.shiftForStart)) ||
                     (touchstartCoordX < elSubmainWidth) && (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart)) {
@@ -279,12 +282,31 @@
         }
         //------------------------------------------------------------------
 
+        //------------------------------------------------------------------
+        // aaaand actioooon!
+        //------------------------------------------------------------------
         tssActionsEngine();
 
         //public functions
+        var returnTssOpen;
+        var returnTssClose;
+        function tssRecalcApi(){// if not mobile window width
+            if (winInnerWidth > opt.windowMaxWidth) {
+                var returnTssFailed = '(touch-sideswipe) cant use when window inner width > ' + opt.windowMaxWidth + 'px (your actual option windowMaxWidth). Please, add the condition here.';
+                returnTssOpen = function(){console.log('tssOpen ' + returnTssFailed )};
+                returnTssClose = function(){console.log('tssClose ' + returnTssFailed)};
+            }
+            else {
+                returnTssOpen = tssOpen;
+                returnTssClose = tssClose;
+            }
+        }
+        tssRecalcApi();
+        window.addEventListener('resize', tssRecalcApi, false);
+        
         return {
-            tssOpen: tssOpen,
-            tssClose: tssClose
+            tssOpen: returnTssOpen,
+            tssClose: returnTssClose
         }
 
     };

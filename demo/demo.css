@@ -9,8 +9,8 @@ body {
     repeating-linear-gradient(125deg, transparent, transparent 2px, rgba(0,0,0,.2) 2px, rgba(0,0,0,.2) 3px, transparent 3px, transparent 5px, rgba(0,0,0,.2) 5px);
 }
 .content{
-    max-width: 600px;
-    margin: 70px auto auto auto;
+    max-width: 800px;
+    margin: 10px auto;
     padding: 20px;
     font-size: 20px;
     color: #444;
@@ -20,6 +20,16 @@ body {
 @media(max-width:1023px){
     .touch-side-swipe{
         background: hsl(2, 57%, 40%);
+    }
+}
+@media(min-width:1024px){
+    .touch-side-swipe li {
+        display: block;
+        float: left;
+        padding: 4px;
+        margin-right: 5px;
+        border-radius: 2px;
+        border: 1px solid #fff;
     }
 }
 .touch-side-swipe ul{display: block;overflow-y:overlay;margin: 0; padding: 0;line-height: 30px}
