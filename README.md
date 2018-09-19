@@ -4,12 +4,11 @@
 <h2>How to use Demo.</h2>
 <p>If you're in touch devise: touch (swipe) left window side to right</p>
 <p>If you're in Chrome:</p>
-<p>just reduce and reload your browser window</p>
+<p>just reduce your browser window</p>
 <p>OR:</p>
 <ol>
     <li>Activate "Web-inspector"</li>
     <li>Activate "Toogle device toolbar"</li>
-    <li>Reload window</li>
     <li>Touch (swipe) left window side to right</li>
 </ol>
 
