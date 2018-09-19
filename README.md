@@ -16,7 +16,8 @@
 <h2>How to use "touch-sideswipe.js"</h2>
 <p>See demo/index.html</p>
 
-<p>Public api-functions for call open/close *:<br><span style="color:#a0302c">touchSideSwipe.tssOpen()<br>touchSideSwipe.tssClose()</span> ( and you can use <span style="color:#a0302c">touchSideSwipe.tssOpen() and touchSideSwipe.tssClose() </span> only when window inner width < option windowMaxWidth in config.</p>
+<p>Public api-functions for call open/close *:<br><span style="color:#a0302c">touchSideSwipe.tssOpen()<br>touchSideSwipe.tssClose()</span> <br>
+    ( and you can use <span style="color:#a0302c">touchSideSwipe.tssOpen() and touchSideSwipe.tssClose() </span> only when window inner width < option windowMaxWidth in config.)</p>
 <p> * or document.querySelector('.tss-label').click()</p>
 <i>//todo: create branch gh-page for demo
 </i>
