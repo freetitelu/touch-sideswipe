@@ -14,34 +14,8 @@
 </ol>
 
 <h2>How to use "touch-sideswipe.js"</h2>
-```
-<div id="touchSideSwipe" class="touch-side-swipe">
-    <ul>
-        <li><a href="#">navbar</a></li>
-        <li><a href="#">navbar</a></li>
-        <li><a href="#">navbar</a></li>
-    </ul>
-</div>
-<script src="../src/touch-sideswipe.js"></script>
-<script type="text/javascript">
-    var config = {
-        elementID: 'touchSideSwipe',
-        elementWidth: 400, //px
-        elementMaxWidth: 0.8, // *100%
-        sideHookWidth: 44, //px
-        moveSpeed: 0.2, //sec
-        opacityBackground: 0.8,
-        shiftForStart: 50, // px
-        windowMaxWidth: 1024, // px
-    }
-    var touchSideSwipe = new TouchSideSwipe(config);
-</script>
-<script>
-    // demo open/close on load document (or click on label)
-    setTimeout(function() {touchSideSwipe.tssOpen()}, 2000);
-    setTimeout(function() {touchSideSwipe.tssClose()}, 3500);
-</script>
-```
+<p>See demo/index.html</p>
+
 <p>Public api-functions for call open/close *:<br><span style="color:#a0302c">touchSideSwipe.tssOpen()<br>touchSideSwipe.tssClose()</span> ( and you can use <span style="color:#a0302c">touchSideSwipe.tssOpen() and touchSideSwipe.tssClose() </span> only when window inner width < option windowMaxWidth in config.</p>
 <p> * or document.querySelector('.tss-label').click()</p>
 <i>//todo: create branch gh-page for demo
