@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="touchSideSwipe" class="touch-side-swipe">
+    <div id="touchSideSwipe">
         <ul>
             <li><a href="#">navbar</a></li>
             <li><a href="#">navbar</a></li>
@@ -23,6 +23,20 @@
             <li><a href="#">navbar</a></li>
             <li><a href="#">navbar</a></li>
             <li><a href="#">navbar</a></li>
+            <li><a href="#">navbar</a></li>
+        </ul>
+    </div>
+    <br>
+    <div id="touchSideSwipeRight">
+        <ul>
+            <li><a href="#">navbar-right</a></li>
+            <li><a href="#">navbar-right</a></li>
+            <li><a href="#">navbar-right</a></li>
+            <li><a href="#">navbar-right</a></li>
+            <li><a href="#">navbar-right</a></li>
+            <li><a href="#">navbar-right</a></li>
+            <li><a href="#">navbar-right</a></li>
+            <li><a href="#">navbar-right</a></li>
         </ul>
     </div>
     <div class="content">
@@ -51,25 +65,39 @@
 
     <script src="../src/touch-sideswipe.js"></script>
     <script type="text/javascript">
-        var config = {
+        var touchSideSwipeConfig = {
             elementID: 'touchSideSwipe',
             elementWidth: 400, //px
             elementMaxWidth: 0.8, // *100%
-            sideHookWidth: 44, //px
+            sideHookWidth: 24, //px
             moveSpeed: 0.2, //sec
             opacityBackground: 0.8,
             shiftForStart: 50, // px
             windowMaxWidth: 1024, // px
         }
-        var touchSideSwipe = new TouchSideSwipe(config);
+        var touchSideSwipe = new TouchSideSwipe(touchSideSwipeConfig);
+        
+        var configRight = {
+            elementID: 'touchSideSwipeRight',
+            rightMod: true,
+            elementWidth: 400, //px
+            elementMaxWidth: 0.8, // *100%
+            sideHookWidth: 24, //px
+            moveSpeed: 0.2, //sec
+            opacityBackground: 0.8,
+            shiftForStart: 50, // px
+            windowMaxWidth: 1024, // px
+        }
+        var touchSideSwipeRight = new TouchSideSwipe(configRight);
+        
     </script>
     <script>
         // demo open/close on load document
-        setTimeout(function() {touchSideSwipe.tssOpen()}, 2000);
-        setTimeout(function() {touchSideSwipe.tssClose()}, 3500);
+        //setTimeout(function() {touchSideSwipe.tssOpen()}, 2000);
+        //setTimeout(function() {touchSideSwipe.tssClose()}, 3500);
         // demo open/close buttons
-        document.getElementById('callOpen').addEventListener('click', function(){touchSideSwipe.tssOpen()});
-        document.getElementById('callClose').addEventListener('click', function(){touchSideSwipe.tssClose()});
+        //document.getElementById('callOpen').addEventListener('click', function(){touchSideSwipe.tssOpen()});
+        //document.getElementById('callClose').addEventListener('click', function(){touchSideSwipe.tssClose()});
     </script>
 
 </body>

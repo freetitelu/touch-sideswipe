@@ -3,10 +3,7 @@ html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-t
 
 body {
     padding: 0 20px;
-    background-color: hsl(2, 57%, 40%);
-    background-image: repeating-linear-gradient(transparent, transparent 50px, rgba(0,0,0,.4) 50px, rgba(0,0,0,.4) 53px, transparent 53px, transparent 63px, rgba(0,0,0,.4) 63px, rgba(0,0,0,.4) 66px, transparent 66px, transparent 116px, rgba(0,0,0,.5) 116px, rgba(0,0,0,.5) 166px, rgba(255,255,255,.2) 166px, rgba(255,255,255,.2) 169px, rgba(0,0,0,.5) 169px, rgba(0,0,0,.5) 179px, rgba(255,255,255,.2) 179px, rgba(255,255,255,.2) 182px, rgba(0,0,0,.5) 182px, rgba(0,0,0,.5) 232px, transparent 232px),
-    repeating-linear-gradient(270deg, transparent, transparent 50px, rgba(0,0,0,.4) 50px, rgba(0,0,0,.4) 53px, transparent 53px, transparent 63px, rgba(0,0,0,.4) 63px, rgba(0,0,0,.4) 66px, transparent 66px, transparent 116px, rgba(0,0,0,.5) 116px, rgba(0,0,0,.5) 166px, rgba(255,255,255,.2) 166px, rgba(255,255,255,.2) 169px, rgba(0,0,0,.5) 169px, rgba(0,0,0,.5) 179px, rgba(255,255,255,.2) 179px, rgba(255,255,255,.2) 182px, rgba(0,0,0,.5) 182px, rgba(0,0,0,.5) 232px, transparent 232px),
-    repeating-linear-gradient(125deg, transparent, transparent 2px, rgba(0,0,0,.2) 2px, rgba(0,0,0,.2) 3px, transparent 3px, transparent 5px, rgba(0,0,0,.2) 5px);
+    background: #fffafa;
 }
 .content{
     max-width: 800px;
@@ -14,24 +11,29 @@ body {
     padding: 20px;
     font-size: 20px;
     color: #444;
-    background: #eee;
+    background: #fafafa;
     line-height: 40px;
+    box-shadow: 0 1px 2px 1px #444;
 }
 @media(max-width:1023px){
     .touch-side-swipe{
-        background: hsl(2, 57%, 40%);
+        background: #ffffff;
     }
 }
 @media(min-width:1024px){
     .touch-side-swipe li {
         display: block;
         float: left;
-        padding: 4px;
+        padding: 7px;
         margin-right: 5px;
         border-radius: 2px;
-        border: 1px solid #fff;
+        box-shadow: 0 1px 3px #999;
+        background: #fff;
+        margin: 2px;
     }
 }
-.touch-side-swipe ul{display: block;overflow-y:overlay;margin: 0; padding: 0;line-height: 30px}
-.touch-side-swipe a {color:#fff;}
+.touch-side-swipe ul{display: block;overflow-y:overlay;margin: 2px 0;padding: 0;line-height: 30px;}
+.touch-side-swipe a {
+    color: #222;
+}
 *{box-sizing: border-box}

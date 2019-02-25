@@ -1,7 +1,5 @@
-/* touchSideSwipe v0.3.1
- * https://github.com/Lucyway/touch-sideswipe
- * 2018 (c) Mititelu Nick (aka freetitelu). MIT license.
- */
+/* touchSideSwipe v1.0.0. 2019 (c) Mititelu Nick. MIT license. 
+   https://github.com/freetitelu/touch-sideswipe */
 (function(root, factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
@@ -17,27 +15,30 @@
         //------------------------------------------------------------------
         var opt = { //default options
             elInitID: config.elementID || 'touchSideSwipe',
-            elSubmainWidth: config.elementWidth || 400, //px
-            elSubmainMaxWidth: config.elementMaxWidth || 0.8, // *100%
-            sideHookWidth: config.sideHookWidth || 44, //px
+            elWrapWidth: config.elementWidth || 400, //px
+            elWrapMaxWidth: config.elementMaxWidth || 0.8, // *100%
+            sideHookWidth: config.sideHookWidth || 24, //px
             moveSpeed: config.moveSpeed || 0.2, //sec
             opacityBackground: config.opacityBackground || 0.8,
             shiftForStart: config.shiftForStart || 50, // px
             windowMaxWidth: config.windowMaxWidth || 1024, // px
+            rightMod: config.rightMod || false,
         };
         //------------------------------------------------------------------
         var winInnerWidth = window.innerWidth;
         var touchstartCoordX;
         var touchmoveCoordX;
-        var open;
+        var opened;
         var elMainCoordX0;
         var elInit;
         var elMain;
-        var elSubmain;
+        var elWrap;
         var elLabel;
-        var elBg;
-        var elSubmainWidth;
+        var elLabelPic;
+        var elWrapWidth;
         var elMainWidth;
+        var mod = 1;
+        if(opt.rightMod){mod = -1};
         var init = false;
 
         //------------------------------------------------------------------
@@ -46,46 +47,48 @@
         function tssInitStates() {
             init = true;
             //-------------------------------
-            // create DOM-elements: main-wrapper, sub-wrapper, label, background
+            // create DOM-elements: main-wrapper, sub-wrapper, label
             //-------------------------------
             elInit = document.getElementById(opt.elInitID);
+            if(!elInit){console.log('not found ' + opt.elInitID);return false}
+            elInit.classList.add('touch-side-swipe');
             elMain = document.createElement('div');
-            elSubmain = document.createElement('div');
+            elWrap = document.createElement('div');
             elLabel = document.createElement('div');
-            elLabel.innerHTML = '<div class="tss-label_pic"></div>';
-            elBg = document.createElement('div');
+            elLabelPic = document.createElement('div');
+            elLabelPic.classList.add('tss-label_pic');
+            elLabel.innerHTML = elLabelPic.outerHTML;
             //-------------------------------
 
             //-------------------------------
-            // wrap initial-elem in main in submain, add bg in body
-            elMain.appendChild(elSubmain);
-            elSubmain.appendChild(elLabel);
+            // wrap initial-elem in main in submain
+            elMain.appendChild(elWrap);
+            elWrap.appendChild(elLabel);
             elInit.parentNode.insertBefore(elMain, elInit);
-            elSubmain.appendChild(elInit);
-            document.body.insertBefore(elBg, document.body.lastChild);
+            elWrap.appendChild(elInit);
             //-------------------------------
 
             //-------------------------------
             // css classes for customize
             //-------------------------------
             elMain.classList = 'tss';
-            elSubmain.classList = 'tss-wrap';
+            if(opt.rightMod){elMain.classList.add('tss--right')}
+            elWrap.classList = 'tss-wrap';
             elLabel.classList = 'tss-label';
-            elBg.classList = 'tss-bg';
             //-------------------------------
 
             //-------------------------------
             // create first style parameters: width and state wrapped DOM-element
             //-------------------------------
             if (winInnerWidth > 499) {
-                elSubmainWidth = opt.elSubmainWidth;
+                elWrapWidth = opt.elWrapWidth;
             } else {
-                elSubmainWidth = winInnerWidth * opt.elSubmainMaxWidth;
+                elWrapWidth = winInnerWidth * opt.elWrapMaxWidth;
             }
-            elSubmain.style.width = elSubmainWidth + 'px';
-            elMainWidth = elSubmainWidth + opt.sideHookWidth;
+            elWrap.style.width = elWrapWidth + 'px';
+            elMainWidth = elWrapWidth + opt.sideHookWidth;
             elMain.style.transitionDuration = opt.moveSpeed + 's';
-            elBg.style.transitionDuration = opt.moveSpeed + 's';
+            elLabel.style.transitionDuration = opt.moveSpeed + 's';
             //-------------------------------
             tssClose();
         }
@@ -95,18 +98,20 @@
         // recalc parameters on resize window
         //------------------------------------------------------------------
         function tssRecalcStates() {
-            if (open === true) {
+            if (opened) {
                 tssClose();
             }
             winInnerWidth = window.innerWidth;
             if (winInnerWidth > 499) {
-                elSubmainWidth = opt.elSubmainWidth;
+                elWrapWidth = opt.elWrapWidth;
             } else {
-                elSubmainWidth = winInnerWidth * opt.elSubmainMaxWidth;
+                elWrapWidth = winInnerWidth * opt.elWrapMaxWidth;
             }
-            elMainWidth = elSubmainWidth + opt.sideHookWidth;
-            elSubmain.style.width = elSubmainWidth + 'px';
-            elMain.style.transform = 'translateX(' + (-elSubmainWidth) + 'px)';
+            elMainWidth = elWrapWidth + opt.sideHookWidth;
+            elWrap.style.width = elWrapWidth + 'px';
+            elMain.style.transform = 'translateX(' + (-elWrapWidth) + 'px)';
+            elLabel.style.transform = 'translateX(' + (elWrapWidth) + 'px)';
+            //elLabelPic
             elMain.style.width = elMainWidth + 'px';
         }
         //------------------------------------------------------------------
@@ -115,12 +120,16 @@
         // start touch-event (use states from tssInitStates, tssRecalcStates)
         //------------------------------------------------------------------
         function tssTouchstart(event) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflowY = 'hidden';
             elMain.style.transitionDuration = '0s';
-            elBg.style.transitionDuration = '0s';
-            elBg.style.zIndex = 999;
+            elLabel.style.transitionDuration = '0s';
             elMainCoordX0 = elMain.getBoundingClientRect().left;
             touchstartCoordX = event.changedTouches[0].clientX;
+            
+            if(!opened){
+                elLabel.classList.add('tss-label--opened');
+            }
+
         }
         //------------------------------------------------------------------
 
@@ -131,19 +140,19 @@
             touchmoveCoordX = event.changedTouches[0].clientX;
             var elMainCoordX0New = touchmoveCoordX - (touchstartCoordX - elMainCoordX0);
 
-            if ((elMainCoordX0New) <= 0) { // swipe touchmove < elSubmainWidth
-                if (touchstartCoordX > elSubmainWidth) { //if opened and touchstart over elSub
-                    elMainCoordX0New = elMainCoordX0New + (touchstartCoordX - elSubmainWidth);
+            if ((elMainCoordX0New) <= 0) { // swipe touchmove < elWrapWidth
+                if (touchstartCoordX > elWrapWidth) { //if opened and touchstart over elSub
+                    elMainCoordX0New = elMainCoordX0New + (touchstartCoordX - elWrapWidth);
                 }
-                if (touchmoveCoordX <= elSubmainWidth) {
+                if (touchmoveCoordX <= elWrapWidth) {
                     elMain.style.transform = 'translateX(' + elMainCoordX0New + 'px)';
                 }
-                var elBgOpacity = touchmoveCoordX / elSubmainWidth;
-                if (elBgOpacity > 0 && elBgOpacity < 1) {
-                    if (elBgOpacity >= opt.opacityBackground) {
-                        elBg.style.opacity = opt.opacityBackground;
+                var elLabelBg = touchmoveCoordX / elWrapWidth;
+                if (elLabelBg > 0 && elLabelBg < 1) {
+                    if (elLabelBg >= opt.opacityBackground) {
+                        elLabel.style.backgroundColor = opt.opacityBackground;
                     } else {
-                        elBg.style.opacity = elBgOpacity;
+                        elLabel.style.backgroundColor = 'rgba(0, 0, 0, ' + elLabelBg + ')';
                     }
                 }
             }
@@ -156,21 +165,19 @@
         function tssTouchend(event) {
             var touchendCoordX = event.changedTouches[0].clientX;
             document.body.style.overflow = '';
-            elMain.style.transitionDuration = opt.moveSpeed + 's'; //todo: перетащить в open/close
-            elBg.style.transitionDuration = opt.moveSpeed + 's';
-            if (!open && touchendCoordX > touchstartCoordX) {
+            if (!opened && touchendCoordX > touchstartCoordX) {
                 if (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart) {
                     tssOpen();
                 } else {
                     tssClose();
                 }
             } //touchendCoordX!==touchstartCoordX, equal for click event
-            else if (!open && touchendCoordX < touchstartCoordX) { // if not opened and drag move left 
+            else if (!opened && touchendCoordX < touchstartCoordX) { // if not opened and drag move left 
                 tssClose();
             }
-            else if (open && (touchendCoordX < touchstartCoordX) && (touchendCoordX <= elSubmainWidth)) {
-                if ((touchstartCoordX > elSubmainWidth) && (touchendCoordX < (elSubmainWidth - opt.shiftForStart)) ||
-                    (touchstartCoordX < elSubmainWidth) && (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart)) {
+            else if (opened && (touchendCoordX < touchstartCoordX) && (touchendCoordX <= elWrapWidth)) {
+                if ((touchstartCoordX > elWrapWidth) && (touchendCoordX < (elWrapWidth - opt.shiftForStart)) ||
+                    (touchstartCoordX < elWrapWidth) && (Math.abs(touchstartCoordX - touchendCoordX) > opt.shiftForStart)) {
                     tssClose();
                 } else {
                     tssOpen();
@@ -184,7 +191,7 @@
         //------------------------------------------------------------------
         function elLabelClick(event) {
             event.stopPropagation();
-            if (open === false) {
+            if (!opened) {
                 tssOpen();
             } else {
                 tssClose();
@@ -193,16 +200,6 @@
 
         //------------------------------------------------------------------
 
-        //------------------------------------------------------------------
-        // open/close on click background-element
-        //------------------------------------------------------------------
-        function elBgClick(event) {
-            event.stopPropagation();
-            var elMainCoordX0ForClick = elMain.getBoundingClientRect().left;
-            if (event.clientX > (elMainCoordX0ForClick + elSubmainWidth)) {
-                tssClose();
-            }
-        }
 
         //------------------------------------------------------------------
 
@@ -210,15 +207,14 @@
         // change states on Open
         //------------------------------------------------------------------
         function tssOpen() {
-            elBg.style.opacity = opt.opacityBackground;
+            elMain.style.transitionDuration = opt.moveSpeed + 's';
+            elLabel.style.transitionDuration = opt.moveSpeed + 's';
+            elLabel.classList.add('tss-label--opened');
+            elLabel.style.backgroundColor = 'rgba(0, 0, 0, ' + opt.opacityBackground + ')';
             elMain.style.width = winInnerWidth + 'px';
             elMain.style.transform = 'translateX(0px)';
-            elMain.classList.remove('tss--close');
-            elMain.classList.add('tss--open');
-            elBg.classList.remove('tss-bg--close');
-            elBg.classList.add('tss-bg--open');
-            elBg.style.zIndex = '999';
-            open = true;
+            elMain.classList.add('tss--opened');
+            opened = true;
         }
         //------------------------------------------------------------------
 
@@ -226,16 +222,16 @@
         // change states on Close
         //------------------------------------------------------------------
         function tssClose() {
-            document.body.style.overflow = '';
-            elBg.style.opacity = 0;
+            elMain.style.transitionDuration = opt.moveSpeed + 's';
+            elLabel.style.transitionDuration = opt.moveSpeed + 's';
+            elLabel.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+            if(!opt.rightMod){elLabel.style.transform = 'translateX(' + elWrapWidth + 'px)';}
+            else if(opt.rightMod){elLabel.style.transform = 'translateX(0px)';}
             elMain.style.width = elMainWidth + 'px';
-            elMain.style.transform = 'translateX(' + (-elSubmainWidth) + 'px)';
-            elMain.classList.remove('tss--open');
-            elMain.classList.add('tss--close');
-            elBg.classList.remove('tss-bg--open');
-            elBg.classList.add('tss-bg--close');
-            elBg.style.zIndex = '-999';
-            open = false;
+            elMain.style.transform = 'translateX(' + -elWrapWidth*mod + 'px)';
+            elMain.classList.remove('tss--opened');
+            elLabel.classList.remove('tss-label--opened');
+            opened = false;
         }
         //------------------------------------------------------------------
 
@@ -243,10 +239,9 @@
         // tssClear (for large-width windows)
         //------------------------------------------------------------------
         function tssClear() {
-            if ((elMain && elBg) != undefined) {
+            if (elMain != undefined) {
                 elMain.parentNode.insertBefore(elInit, elMain);
                 elMain.remove();
-                elBg.remove();
                 init = false;
             }
         }
@@ -271,14 +266,13 @@
         function tssActionsEngine() {
             if (winInnerWidth < opt.windowMaxWidth && !init) {
                 tssInitStates();
-                window.addEventListener('resize', tssRecalcStates, false);
-                elMain.addEventListener('touchstart', tssTouchstart, false);
-                elMain.addEventListener('touchmove', tssTouchmove, false);
-                elMain.addEventListener('touchend', tssTouchend, false);
-                elMain.addEventListener('click', elBgClick, false);
-                elLabel.addEventListener('click', elLabelClick, false);
+                window.addEventListener('resize', tssRecalcStates);
+                elMain.addEventListener('touchstart', tssTouchstart);
+                elMain.addEventListener('touchmove', tssTouchmove);
+                elMain.addEventListener('touchend', tssTouchend);
+                elLabel.addEventListener('click', elLabelClick);
             }
-            window.addEventListener('resize', winOnresizeEngine, false);
+            window.addEventListener('resize', winOnresizeEngine);
         }
         //------------------------------------------------------------------
 

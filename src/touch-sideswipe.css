@@ -1,20 +1,6 @@
-/* touchSideSwipe v0.3.1
- * https://github.com/Lucyway/touch-sideswipe
- * 2018 (c) Mititelu Nick (aka freetitelu). MIT license.
- */
-
-@media(max-width:1023px) {
-    .touch-side-swipe {
-        display: none;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-    }
-    .tss .touch-side-swipe {
-        display: block;
-        overflow-y: overlay;
-    }
+/* touchSideSwipe v1.0.0. 2019 (c) Mititelu Nick. MIT license. 
+   https://github.com/freetitelu/touch-sideswipe */
+@media(max-width: 1023px) {
     .tss {
         z-index: 9999;
         position: fixed;
@@ -25,25 +11,68 @@
         transition-property: transform;
         transition-timing-function: ease;
     }
+
+    .tss--right {
+        right: 0px;
+        left: auto;
+    }
+
     .tss-wrap {
         height: 100%;
         width: 100%;
         position: absolute;
         top: 0;
         left: 0;
+        z-index: -99999;
     }
+
+    .tss--right .tss-wrap {
+        right: 0;
+        left: auto;
+    }
+
+    .touch-side-swipe {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        overflow-y: overlay;
+    }
+
+    .tss--right .touch-side-swipe {
+        right: 0;
+        left: auto;
+    }
+
     .tss-label {
-        z-index: 99999;
-        position: absolute;
-        top: 5px;
-        right: -44px;
-        width: 44px;
-        height: 44px;
         display: block;
         cursor: pointer;
+        top: 0;
+        width: 44px;
+        height: 44px;
+        margin: 0 auto 0 0;
+        position: absolute;
+        will-change: background;
+        transition-property: background;
+        transition-timing-function: ease;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
+
+    .tss-label:focus:not(.tss-label:focus-visible) {
+        outline: none
+    }
+
+    .tss-label--opened {
+        width: 10000px;
+        height: 10000px;
+    }
+
+    .tss--right .tss-label {
+        z-index: 9999;
+    }
+
     .tss-label_pic {
-        position: relative;
+        position: absolute;
         display: inline-block;
         vertical-align: middle;
         font-style: normal;
@@ -52,21 +81,34 @@
         direction: ltr;
         box-sizing: border-box;
         transition: transform .2s ease;
+        left: 0;
+        top: 0;
+        z-index: 99999;
     }
-    .tss-label_pic:after,
-    .tss-label_pic:before {
+    .tss--right .tss-label_pic {
+        left: 0;
+        right: 44px;
+    }
+    .tss--opened.tss--right .tss-label_pic {
+        left: 0;
+        right: 44px;
+    }
+
+    .tss-label_pic:after, .tss-label_pic:before {
         content: '';
         pointer-events: none;
         transition: transform .2s ease;
     }
-    .tss--close .tss-label_pic {
+
+    .tss .tss-label_pic {
         color: #000;
         width: 30px;
         height: 4px;
         box-shadow: inset 0 0 0 32px, 0 -8px, 0 8px;
         margin: 15px 7px;
     }
-    .tss--close .tss-label_pic:after {
+
+    .tss .tss-label_pic:after {
         position: absolute;
         transform: translateY(4px);
         color: #fff;
@@ -76,40 +118,32 @@
         top: 0;
         left: 0;
     }
-    .tss--open .tss-label_pic {
+
+    .tss--opened .tss-label_pic {
         color: #fff;
         padding: 0;
         width: 40px;
         height: 40px;
         margin: 2px;
         transform: rotate(45deg);
+        box-shadow: none;
     }
-    .tss--open .tss-label_pic:before {
+
+    .tss--opened .tss-label_pic:before {
         width: 40px;
         height: 2px;
     }
-    .tss--open .tss-label_pic:after {
+
+    .tss--opened .tss-label_pic:after {
         width: 2px;
         height: 40px;
     }
-    .tss--open .tss-label_pic:after,
-    .tss--open .tss-label_pic:before {
+
+    .tss--opened .tss-label_pic:after, .tss--opened .tss-label_pic:before {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
         box-shadow: inset 0 0 0 32px;
-    }
-    .tss-bg {
-        background: #000;
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        will-change: opacity;
-        transition-property: opacity;
-        transition-timing-function: ease;
     }
 }
