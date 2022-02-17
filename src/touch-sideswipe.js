@@ -272,9 +272,9 @@
             if (winInnerWidth < opt.windowMaxWidth && !init) {
                 tssInitStates();
                 window.addEventListener('resize', tssRecalcStates, false);
-                elMain.addEventListener('touchstart', tssTouchstart, false);
-                elMain.addEventListener('touchmove', tssTouchmove, false);
-                elMain.addEventListener('touchend', tssTouchend, false);
+                elMain.addEventListener('touchstart', tssTouchstart, {passive: true});
+                elMain.addEventListener('touchmove', tssTouchmove, {passive: true});
+                elMain.addEventListener('touchend', tssTouchend, {passive: true});
                 elMain.addEventListener('click', elBgClick, false);
                 elLabel.addEventListener('click', elLabelClick, false);
             }
